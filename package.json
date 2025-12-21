@@ -1,6 +1,6 @@
 {
   "name": "w67",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Animate terminal output with 67",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twangodev/67.git"
+    "url": "git+https://github.com/twangodev/w67.git"
   },
   "keywords": [
     "cli",
