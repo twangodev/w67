@@ -3,23 +3,25 @@
 import React from 'react';
 import { render } from 'ink';
 import meow from 'meow';
+import figlet from 'figlet';
 import { App } from './App.js';
 
 const cli = meow(`
   Usage
-    $ w67 < input
-    $ echo "text" | w67
+    $ w67 "text"              # renders as ASCII art
+    $ echo "text" | w67       # animates raw text
 
   Options
     -d, --duration    Animation duration in ms (default: 3000)
     -i, --intensity   Max tilt in rows (default: 4)
     -f, --fps         Frames per second (default: 30)
+    -F, --font        Figlet font (default: ANSI Shadow)
     --no-settle       Rock forever without decay
 
   Examples
-    $ echo "HELLO WORLD" | w67
-    $ ls -la | w67 --duration 5000
-    $ figlet "67" | w67 --intensity 6
+    $ w67 "67"
+    $ w67 "HELLO" --font Slant
+    $ ls -la | w67
 `, {
   importMeta: import.meta,
   flags: {
@@ -37,6 +39,11 @@ const cli = meow(`
       type: 'number',
       shortFlag: 'f',
       default: 30
+    },
+    font: {
+      type: 'string',
+      shortFlag: 'F',
+      default: 'ANSI Shadow'
     },
     settle: {
       type: 'boolean',
@@ -58,11 +65,35 @@ function readStdin(): Promise<string> {
   });
 }
 
+function renderFiglet(text: string, font: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    figlet.text(text, { font }, (err, result) => {
+      if (err) reject(err);
+      else resolve(result ?? text);
+    });
+  });
+}
+
 async function main(): Promise<void> {
-  const input = await readStdin();
+  let input: string;
+  let useFiglet = false;
+
+  if (!process.stdin.isTTY) {
+    input = await readStdin();
+  } else if (cli.input.length > 0) {
+    input = cli.input.join(' ');
+    useFiglet = true;
+  } else {
+    input = '67';
+    useFiglet = true;
+  }
 
   if (!input.trim()) {
     process.exit(0);
+  }
+
+  if (useFiglet) {
+    input = await renderFiglet(input.trim(), cli.flags.font);
   }
 
   const options = {

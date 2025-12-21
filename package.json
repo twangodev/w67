@@ -1,6 +1,6 @@
 {
   "name": "w67",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Animate terminal output with 67",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,18 +26,20 @@
     "tilt"
   ],
   "author": "",
-  "license": "MIT",
+  "license": "WTFPL",
   "type": "module",
   "bugs": {
     "url": "https://github.com/twangodev/w67/issues"
   },
   "homepage": "https://github.com/twangodev/w67#readme",
   "devDependencies": {
+    "@types/figlet": "^1.7.0",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "figlet": "^1.9.4",
     "ink": "^6.5.1",
     "meow": "^14.0.0",
     "react": "^19.2.3"
