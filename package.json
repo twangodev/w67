@@ -1,0 +1,45 @@
+{
+  "name": "67",
+  "version": "1.0.0",
+  "description": "Animate terminal output with 67",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "67": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twangodev/67.git"
+  },
+  "keywords": [
+    "cli",
+    "animation",
+    "terminal",
+    "tilt"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/twangodev/67/issues"
+  },
+  "homepage": "https://github.com/twangodev/67#readme",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ink": "^6.5.1",
+    "meow": "^14.0.0",
+    "react": "^19.2.3"
+  }
+}
