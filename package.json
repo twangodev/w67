@@ -1,11 +1,11 @@
 {
-  "name": "67",
-  "version": "1.0.0",
+  "name": "w67",
+  "version": "1.0.1",
   "description": "Animate terminal output with 67",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "67": "./dist/cli.js"
+    "w67": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -29,9 +29,9 @@
   "license": "MIT",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/twangodev/67/issues"
+    "url": "https://github.com/twangodev/w67/issues"
   },
-  "homepage": "https://github.com/twangodev/67#readme",
+  "homepage": "https://github.com/twangodev/w67#readme",
   "devDependencies": {
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",

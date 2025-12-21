@@ -7,8 +7,8 @@ import { App } from './App.js';
 
 const cli = meow(`
   Usage
-    $ 67 < input
-    $ echo "text" | 67
+    $ w67 < input
+    $ echo "text" | w67
 
   Options
     -d, --duration    Animation duration in ms (default: 3000)
@@ -17,9 +17,9 @@ const cli = meow(`
     --no-settle       Rock forever without decay
 
   Examples
-    $ echo "HELLO WORLD" | 67
-    $ ls -la | 67 --duration 5000
-    $ figlet "67" | 67 --intensity 6
+    $ echo "HELLO WORLD" | w67
+    $ ls -la | w67 --duration 5000
+    $ figlet "67" | w67 --intensity 6
 `, {
   importMeta: import.meta,
   flags: {
