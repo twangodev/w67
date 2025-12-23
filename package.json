@@ -12,8 +12,13 @@
   ],
   "scripts": {
     "build": "tsc",
+    "lint": "eslint src",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -33,10 +38,15 @@
   },
   "homepage": "https://github.com/twangodev/w67#readme",
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/figlet": "^1.7.0",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
-    "typescript": "^5.9.3"
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1"
   },
   "dependencies": {
     "figlet": "^1.9.4",
