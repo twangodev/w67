@@ -142,3 +142,11 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDEs
 .idea/
+
+# Generated fonts file
+src/fonts.ts
+
+# Compiled binaries
+dist/bin/
+w67
+w67.exe

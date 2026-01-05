@@ -1,10 +1,11 @@
-#!/usr/bin/env node
-
 import React from 'react';
 import { render } from 'ink';
 import meow from 'meow';
 import figlet from 'figlet';
 import { App } from './App.js';
+import { initializeFonts } from './fonts.js';
+
+initializeFonts();
 
 const cli = meow(`
   Usage
