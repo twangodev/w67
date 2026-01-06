@@ -17,6 +17,7 @@
     "build:binary": "bun run build && bun build ./dist/cli.js --compile --outfile w67",
     "build:all": "bun run build && bun scripts/build-binaries.ts",
     "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
