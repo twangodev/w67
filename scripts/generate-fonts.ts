@@ -7,32 +7,34 @@
  * Run with: bun scripts/generate-fonts.ts
  */
 
-import { readdirSync, writeFileSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { readdirSync, writeFileSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-const fontsDir = join(__dirname, "../node_modules/figlet/importable-fonts");
-const outputFile = join(__dirname, "../src/fonts.ts");
+const fontsDir = join(__dirname, '../node_modules/figlet/importable-fonts')
+const outputFile = join(__dirname, '../src/fonts.ts')
 
 // Get all .js font files (exclude .d.ts type definitions)
 const fontFiles = readdirSync(fontsDir)
-  .filter((f) => f.endsWith(".js"))
-  .map((f) => f.replace(/\.js$/, ""));
+  .filter((f) => f.endsWith('.js'))
+  .map((f) => f.replace(/\.js$/, ''))
 
-console.log(`Found ${fontFiles.length} fonts`);
+console.log(`Found ${fontFiles.length} fonts`)
 
 // Generate imports - use dynamic variable names to avoid conflicts
 const imports = fontFiles
-  .map((name, i) => `import font${i} from "figlet/importable-fonts/${name}.js";`)
-  .join("\n");
+  .map(
+    (name, i) => `import font${i} from "figlet/importable-fonts/${name}.js";`
+  )
+  .join('\n')
 
 // Generate registration calls
 const registrations = fontFiles
   .map((name, i) => `  figlet.parseFont(${JSON.stringify(name)}, font${i});`)
-  .join("\n");
+  .join('\n')
 
 // Generate the output file
 const output = `// AUTO-GENERATED FILE - DO NOT EDIT
@@ -55,7 +57,7 @@ ${registrations}
  * List of all available font names.
  */
 export const fontList: string[] = ${JSON.stringify(fontFiles, null, 2)};
-`;
+`
 
-writeFileSync(outputFile, output, "utf-8");
-console.log(`Generated ${outputFile} with ${fontFiles.length} fonts`);
+writeFileSync(outputFile, output, 'utf-8')
+console.log(`Generated ${outputFile} with ${fontFiles.length} fonts`)

@@ -1,1 +1,1 @@
-export { App, type AnimateOptions } from './App.js';
+export { App, type AnimateOptions } from './App.js'

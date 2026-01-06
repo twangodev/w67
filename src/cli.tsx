@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-import React from 'react';
-import { render } from 'ink';
-import meow from 'meow';
-import figlet from 'figlet';
-import { App } from './App.js';
-import { initializeFonts } from './fonts.js';
+import React from 'react'
+import { render } from 'ink'
+import meow from 'meow'
+import figlet from 'figlet'
+import { App } from './App.js'
+import { initializeFonts } from './fonts.js'
 
-initializeFonts();
+initializeFonts()
 
-const cli = meow(`
+const cli = meow(
+  `
   Usage
     $ w67 "text"              # renders as ASCII art
     $ echo "text" | w67       # animates raw text
@@ -25,92 +26,94 @@ const cli = meow(`
     $ w67 "67"
     $ w67 "HELLO" --font Slant
     $ ls -la | w67
-`, {
-  importMeta: import.meta,
-  flags: {
-    duration: {
-      type: 'number',
-      shortFlag: 'd',
-      default: 3000
+`,
+  {
+    importMeta: import.meta,
+    flags: {
+      duration: {
+        type: 'number',
+        shortFlag: 'd',
+        default: 3000,
+      },
+      intensity: {
+        type: 'number',
+        shortFlag: 'i',
+        default: 4,
+      },
+      fps: {
+        type: 'number',
+        shortFlag: 'f',
+        default: 30,
+      },
+      font: {
+        type: 'string',
+        shortFlag: 'F',
+        default: 'ANSI Shadow',
+      },
+      settle: {
+        type: 'boolean',
+        default: true,
+      },
     },
-    intensity: {
-      type: 'number',
-      shortFlag: 'i',
-      default: 4
-    },
-    fps: {
-      type: 'number',
-      shortFlag: 'f',
-      default: 30
-    },
-    font: {
-      type: 'string',
-      shortFlag: 'F',
-      default: 'ANSI Shadow'
-    },
-    settle: {
-      type: 'boolean',
-      default: true
-    }
   }
-});
+)
 
 function readStdin(): Promise<string> {
   return new Promise((resolve) => {
-    let data = '';
-    process.stdin.setEncoding('utf8');
+    let data = ''
+    process.stdin.setEncoding('utf8')
     process.stdin.on('data', (chunk: string) => {
-      data += chunk;
-    });
+      data += chunk
+    })
     process.stdin.on('end', () => {
-      resolve(data);
-    });
-  });
+      resolve(data)
+    })
+  })
 }
 
 function renderFiglet(text: string, font: string): Promise<string> {
   return new Promise((resolve, reject) => {
     figlet.text(text, { font }, (err, result) => {
-      if (err) reject(err);
-      else resolve(result ?? text);
-    });
-  });
+      if (err) reject(err)
+      else resolve(result ?? text)
+    })
+  })
 }
 
 async function main(): Promise<void> {
-  let input: string;
-  let useFiglet = false;
+  let input: string
+  let useFiglet = false
 
   if (!process.stdin.isTTY) {
-    input = await readStdin();
+    input = await readStdin()
   } else if (cli.input.length > 0) {
-    input = cli.input.join(' ');
-    useFiglet = true;
+    input = cli.input.join(' ')
+    useFiglet = true
   } else {
-    input = '67';
-    useFiglet = true;
+    input = '67'
+    useFiglet = true
   }
 
   if (!input.trim()) {
-    process.exit(0);
+    process.exit(0)
   }
 
   if (useFiglet) {
-    input = await renderFiglet(input.trim(), cli.flags.font);
+    input = await renderFiglet(input.trim(), cli.flags.font)
   }
 
   const options = {
     duration: cli.flags.duration,
     intensity: cli.flags.intensity,
     fps: cli.flags.fps,
-    settle: cli.flags.settle
-  };
+    settle: cli.flags.settle,
+  }
 
-  const { waitUntilExit } = render(<App input={input} options={options} />);
-  await waitUntilExit();
+  const { waitUntilExit } = render(<App input={input} options={options} />)
+  await waitUntilExit()
 }
 
 main().catch((err: Error) => {
-  console.error(err);
-  process.exit(1);
-});
+  console.error(err)
+  process.exit(1)
+})
