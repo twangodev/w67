@@ -11,10 +11,11 @@
     "dist"
   ],
   "scripts": {
+    "prebuild": "bun scripts/generate-fonts.ts",
     "build": "tsc",
     "build:fonts": "bun scripts/generate-fonts.ts",
-    "build:binary": "bun run build:fonts && bun run build && bun build ./dist/cli.js --compile --outfile w67",
-    "build:all": "bun run build:fonts && bun run build && bun scripts/build-binaries.ts",
+    "build:binary": "bun run build && bun build ./dist/cli.js --compile --outfile w67",
+    "build:all": "bun run build && bun scripts/build-binaries.ts",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
